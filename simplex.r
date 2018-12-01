@@ -59,10 +59,10 @@ ComputeNewRow <- function(temp, old_row){
 SimplexMethod <- function(tableu){
   row_tableu = nrow(tableu)
   col_tableu = ncol(tableu)
-  last_row = tableu[5, ]
+  last_row = tableu[row_tableu, ]
   
   neg = CheckNegative(last_row, col_tableu)
-  for(count in 1:3){
+  while(neg == TRUE){
     pivot_col_index = GetPivotColumn(last_row, col_tableu)
     pivot_col = tableu[,pivot_col_index]
     #print(pivot_col)
@@ -83,7 +83,7 @@ SimplexMethod <- function(tableu){
         tableu[i, ] = new_row
       }
     }
-    last_row = tableu[5, ]
+    last_row = tableu[row_tableu, ]
     neg = CheckNegative(last_row, col_tableu)
     print(tableu)
   }
@@ -98,19 +98,17 @@ SimplexMethod <- function(tableu){
 
 
 init_tableu = matrix(
-  c(7, 11, 1, 0, 0, 0, 0, 77,
-    10, 8, 0, 1, 0, 0, 0, 80,
-    1, 0, 0, 0, 1, 0, 0, 9,
-    0, 1, 0, 0, 0, 1, 0, 6, 
-    -150, -175, 0, 0, 0, 0, 1, 0),
-  nrow = 5,
-  ncol = 8,
+  c(380052, 1400000, 1, 0, 0, 167207271,
+    0, 1400000, 0, 1, 0, 133765816.8,
+    -10000000, -45000000, 0, 0, 1, 0),
+  nrow = 3,
+  ncol = 6,
   byrow = TRUE
 )
 
 dimnames(init_tableu) = list(
-  c("s1", "s2", "s3", "s4", "Z"),
-  c("r", "p", "s1", "s2", "s3", "s4", "Z", "RHS")
+  c("s1", "s2", "Z"),
+  c("r", "p", "s1", "s2", "Z", "RHS")
 )
 
 print(init_tableu)
